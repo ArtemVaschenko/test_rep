@@ -6,7 +6,7 @@ bot = telebot.TeleBot(config.TOKEN)
 
 @bot.message_handler(commands=['start'])
 def welkome(message):
-    sti = open('/Users/apple/Desktop/astma.webp', 'rb')
+    sti = open(config.stiker, 'rb')
     bot.send_sticker(message.chat.id, sti)
     bot.send_message(message.chat.id, 'Добро пожаловать мой маленький Уайтбой'.format(message.from_user, bot. get_me()))
     parse_mode='html'
