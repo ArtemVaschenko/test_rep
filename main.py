@@ -1,8 +1,7 @@
 import telebot
 import config
-import random
 from telebot import types
-q = 0
+counter = 70
 bot = telebot.TeleBot(config.TOKEN)
 
 @bot.message_handler(commands=['start'])
@@ -17,21 +16,21 @@ def welkome(message):
 
     markup.add(item1, item2)
 
-    bot.send_message(message.chat.id, 'Добро пожаловать мой маленький Уайтбой'.format(message.from_user, bot. get_me()),parse_mode='html', reply_markup=markup)
-
-
-
+    bot.send_message(message.chat.id, 'Добро пожаловать мой маленький Уайтбой'.format(message.from_user, bot. get_me()),
+                     parse_mode='html', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
+
 def lalala(message):
-    if message.chat.type == 'private':
-        if message.chat.type == "Добавить один день":
-            q += 1
-            bot.send_message(message.chat.id, str(q))
-        elif message.chat.type == "Отнять один день":
-            q -= 1
-            bot.send_message(message.chat.id, str(q))
+    global counter
+    if message.chat.type == "private":
+        if message.text == "Добавить один день":
+            counter += 1
+            bot.send_message(message.chat.id, str(counter))
+        elif message.text == "Отнять один день":
+            counter -= 1
+            bot.send_message(message.chat.id, str(counter))
         else:
             bot.send_message(message.chat.id, 'Я не знаю как ответить')
 
