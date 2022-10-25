@@ -2,7 +2,7 @@ import telebot
 import config
 import random
 from telebot import types
-
+q = 0
 bot = telebot.TeleBot(config.TOKEN)
 
 @bot.message_handler(commands=['start'])
@@ -12,8 +12,8 @@ def welkome(message):
 
     # keyboard
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    item1 = types.KeyboardButton("Рандомное число")
-    item2 = types.KeyboardButton("Как дела?")
+    item1 = types.KeyboardButton("Добавить один день")
+    item2 = types.KeyboardButton("Отнять один день")
 
     markup.add(item1, item2)
 
@@ -26,10 +26,12 @@ def welkome(message):
 @bot.message_handler(content_types=['text'])
 def lalala(message):
     if message.chat.type == 'private':
-        if message.chat.type == "Рандомное число":
-            bot.send_message(message.chat.id, str(random.randint(1,100)))
-        elif message.chat.type == "Как дела?":
-            bot.send_message(message.chat.id, 'Как обычно все клубнично)')
+        if message.chat.type == "Добавить один день":
+            q += 1
+            bot.send_message(message.chat.id, str(q))
+        elif message.chat.type == "Отнять один день":
+            q -= 1
+            bot.send_message(message.chat.id, str(q))
         else:
             bot.send_message(message.chat.id, 'Я не знаю как ответить')
 
